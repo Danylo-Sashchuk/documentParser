@@ -11,18 +11,25 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class SettingsTest {
+
+    public static final String MOCKING_SETTINGS_PATH = "/Users/Danylo/Desktop/Workspace/documentparser/src/test" +
+            "/resources";
+
     static Stream<Arguments> getProperties() {
         return Stream.of(
                 arguments("ENABLE_FEATURE_A", "true"),
                 arguments("ENABLE_FEATURE_B", "false"),
                 arguments("API_KEY", "1234567890"),
                 arguments("DATABASE_HOST", "localhost"),
-                arguments("DATABASE_PORT", "5432"));
+                arguments("DATABASE_PORT", "5432"),
+                arguments("DATABASE_USERNAME", "myuser"),
+                arguments("DATABASE_PASSWORD", "mypassword")
+        );
     }
 
     @BeforeEach
     void setUp() {
-        Settings.getInstance("/Users/Danylo/Desktop/Workspace/documentparser/src/test/resources");
+        Settings.getInstance(MOCKING_SETTINGS_PATH);
     }
 
     @ParameterizedTest
