@@ -1,6 +1,8 @@
 package com.sashchuk.documentparser.util;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -27,8 +29,8 @@ class SettingsTest {
         );
     }
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void beforeAll() {
         Settings.getInstance(MOCKING_SETTINGS_PATH);
     }
 
