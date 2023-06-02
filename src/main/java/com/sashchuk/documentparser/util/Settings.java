@@ -1,12 +1,14 @@
 package com.sashchuk.documentparser.util;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Settings {
-    public static final String TESSETACT_DATAPATH = "/opt/homebrew/Cellar/tesseract/5.3.1/share/tessdata";
-    public static final String VM_ARGUMENTS = "-Djna.library.path=/opt/homebrew/Cellar/tesseract/5.3.1/lib";
+    //public static final String TESSETACT_DATAPATH = "/opt/homebrew/Cellar/tesseract/5.3.1/share/tessdata";
+//    public static final String VM_ARGUMENTS = "-Djna.library.path=/opt/homebrew/Cellar/tesseract/5.3.1/lib";
 
 
     private static Settings instance;
@@ -18,16 +20,21 @@ public class Settings {
 
     private Settings(String settingsPath) {
         propertiesInstance = new Properties();
-        Path path = Paths.get(Path.of(settingsPath, "settings").toUri());
-        System.out.println(path);
-        System.out.println("break");
+        Path path = Paths.get(settingsPath, "settings");
+        try {
+            propertiesInstance.load(Files.newBufferedReader(path));
+        } catch (IOException ioException) {
+            throw new RuntimeException("settings files has not been read");
+        }
     }
 
     public static String getProperty(String key) {
+        getInstance();
         return propertiesInstance.getProperty(key);
     }
 
     private static void setProperty(String key, String value) {
+        getInstance();
         propertiesInstance.setProperty(key, value);
     }
 
