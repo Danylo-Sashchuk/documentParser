@@ -11,20 +11,18 @@ import java.io.File;
 
 public class TesseractTest {
 
-    static final Tesseract tesseract = new Tesseract();
+    static Tesseract tesseract;
 
     @BeforeAll
     static void beforeAll() {
-//        tesseract = new Tesseract();
-
+        tesseract = new Tesseract();
+        Settings.recreate();
+        tesseract.setDatapath(Settings.getProperty("TESSETACT_DATAPATH"));
+        System.setProperty("jna.library.path", Settings.getProperty("JNA_LIBRARY_PATH"));
     }
 
     @Test
     void ocr() throws TesseractException {
-        tesseract.setDatapath(Settings.getProperty("TESSETACT_DATAPATH"));
-        String pr = Settings.getProperty("JNA_LIBRARY_PATH");
-        System.setProperty("jna.library.path", pr);
-        System.out.println(System.getProperty("jna.library.path"));
         //Given
         File file = new File("src/test/resources/ProcessEssay.pdf");
         String expected = """
@@ -34,10 +32,15 @@ public class TesseractTest {
 
         //When
         String actual = tesseract.doOCR(file);
-        expected = expected.replace("\n", " ").replace("\r", " ").replace(" ", "");
-        actual = actual.replace("\n", "").replace("\r", "").replace(" ", "");
+        expected = expected.replace("\n", " ")
+                .replace("\r", " ")
+                .replace(" ", "");
+        actual = actual.replace("\n", "")
+                .replace("\r", "")
+                .replace(" ", "");
 
         //Then
-        Assertions.assertThat(expected).isEqualTo(actual);
+        Assertions.assertThat(expected)
+                .isEqualTo(actual);
     }
 }
