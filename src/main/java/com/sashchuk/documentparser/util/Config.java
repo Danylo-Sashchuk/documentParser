@@ -14,16 +14,16 @@ import java.util.Properties;
 
 
 public class Config {
-    public static final String DEFAULT_SETTINGS_PATH = "src/main/resources";
+    public static final String DEFAULT_CONFIG_PATH = "src/main/resources/config.properties";
     private static final Config instance = new Config();
     private static Properties propertiesInstance;
 
     private Config() {
-        this(DEFAULT_SETTINGS_PATH);
+        this(DEFAULT_CONFIG_PATH);
     }
 
-    private Config(String settingsPath) {
-        loadSettings(settingsPath);
+    private Config(String configPath) {
+        loadConfig(configPath);
     }
 
     /**
@@ -52,7 +52,6 @@ public class Config {
     }
 
     /**
-     *
      * @return new HashMap&lt;String, String&gt; with all the properties of the config.
      */
     public static Map<String, String> getProperties() {
@@ -65,25 +64,27 @@ public class Config {
      * Reloads the config.
      */
     public static void recreate() {
-        loadSettings(DEFAULT_SETTINGS_PATH);
+        loadConfig(DEFAULT_CONFIG_PATH);
     }
 
     /**
      * Reloads the config from the specified path.
+     *
      * @param path path do the config's folder.
      */
     public static void recreate(String path) {
-        loadSettings(path);
+        loadConfig(path);
     }
 
     /**
      * Loads the config from the specified path.
-     * @param settingsPath path do the config's folder.
+     *
+     * @param configPath path do the config's folder.
      * @throws ConfigException if exception occurs while loading the config file.
      */
-    private static void loadSettings(String settingsPath) {
+    private static void loadConfig(String configPath) {
         propertiesInstance = new Properties();
-        Path path = Paths.get(settingsPath, "settings");
+        Path path = Paths.get(configPath);
         try {
             propertiesInstance.load(Files.newBufferedReader(path));
         } catch (IOException ioException) {

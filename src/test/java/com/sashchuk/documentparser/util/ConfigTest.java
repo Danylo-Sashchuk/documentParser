@@ -14,9 +14,9 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 
-class ConfigTest {
+public class ConfigTest {
 
-    public static final String TEST_SETTINGS_PATH = "src/test/resources";
+    public static final String TEST_SETTINGS_PATH = "src/test/resources/config.properties";
 
     static Stream<Arguments> getTestProperties() {
         return Stream.of(arguments("ENABLE_FEATURE_A", "true"), arguments("ENABLE_FEATURE_B", "false"), arguments(
