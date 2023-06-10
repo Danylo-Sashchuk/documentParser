@@ -1,6 +1,6 @@
 package com.sashchuk.documentparser.tesseract;
 
-import com.sashchuk.documentparser.util.Settings;
+import com.sashchuk.documentparser.util.Config;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.assertj.core.api.Assertions;
@@ -15,10 +15,10 @@ public class TesseractTest {
 
     @BeforeAll
     static void beforeAll() {
+        Config.recreate();
         tesseract = new Tesseract();
-        Settings.recreate();
-        tesseract.setDatapath(Settings.getProperty("TESSETACT_DATAPATH"));
-        System.setProperty("jna.library.path", Settings.getProperty("JNA_LIBRARY_PATH"));
+        tesseract.setDatapath(Config.getProperty("TESSETACT_DATAPATH"));
+        System.setProperty("jna.library.path", Config.getProperty("JNA_LIBRARY_PATH"));
     }
 
     @Test
