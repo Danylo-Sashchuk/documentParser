@@ -12,7 +12,6 @@ import java.util.Properties;
  * This is a config singleton that contains all the necessary configs through the {@link java.util.Properties} class.
  */
 
-
 public class Config {
     public static final String DEFAULT_CONFIG_PATH = "src/main/resources/config.properties";
     private static final Config instance = new Config();

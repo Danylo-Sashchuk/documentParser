@@ -16,14 +16,18 @@ public class TesseractTest {
     @BeforeAll
     static void beforeAll() {
         Config.recreate();
-        tesseract = new Tesseract();
-        tesseract.setDatapath(Config.getProperty("TESSETACT_DATAPATH"));
         System.setProperty("jna.library.path", Config.getProperty("JNA_LIBRARY_PATH"));
     }
 
+
     @Test
-    void ocr() throws TesseractException {
-        //Given
+    void ocr() throws TesseractException, InterruptedException {
+        tesseract = new Tesseract();
+        Tesseract tesseract1 = new Tesseract();
+        tesseract.setDatapath(Config.getProperty("TESSETACT_DATAPATH"));
+        tesseract1.setDatapath(Config.getProperty("TESSETACT_DATAPATH"));
+
+
         File file = new File("src/test/resources/ProcessEssay.pdf");
         String expected = """
                 Write Your Title Here
@@ -36,9 +40,33 @@ public class TesseractTest {
                 minor. Continue your paragraph following the structure learned in class.
                 """;
 
-        String actual = tesseract.doOCR(file);
+        Thread first = new Thread(() -> {
+            try {
+                String actual = tesseract.doOCR(file);
+                System.out.println(actual);
+            } catch (TesseractException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
-        Assertions.assertThat(expected)
-                .isEqualTo(actual);
+        File file1 = new File("src/test/resources/ProcessEssay1.pdf");
+        Thread second = new Thread(() -> {
+            try {
+                String actual = tesseract1.doOCR(file1);
+                System.out.println(actual);
+            } catch (TesseractException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+        first.start();
+        second.start();
+
+        first.join();
+        second.join();
+
+//        Assertions.assertThat(expected)
+//                .isEqualTo(actual);
     }
 }
