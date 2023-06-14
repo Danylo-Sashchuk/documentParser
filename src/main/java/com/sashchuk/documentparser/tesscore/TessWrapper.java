@@ -5,7 +5,7 @@ import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.util.ImageHelper;
 
 import java.awt.image.BufferedImage;
-
+//TODO documentation
 
 //https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html
 public class TessWrapper {

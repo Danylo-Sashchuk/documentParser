@@ -12,7 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-class TessWrapperTest {
+public class TessWrapperTest {
+    //TODO think about tesseract & test lifecycle
     private final Tesseract tesseract = new Tesseract();
 
     @BeforeAll
