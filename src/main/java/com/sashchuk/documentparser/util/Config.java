@@ -33,7 +33,7 @@ public class Config {
     public static String getProperty(String key) {
         String property = propertiesInstance.getProperty(key);
         if (property == null) {
-            throw new ConfigException("Property " + property + " does not exist");
+            throw new ConfigException("Property " + key + " does not exist");
         }
         return property;
     }

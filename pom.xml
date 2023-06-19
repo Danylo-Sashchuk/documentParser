@@ -68,6 +68,11 @@
             <version>4.0.0-M8</version>
             <type>maven-plugin</type>
         </dependency>
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.6.0-0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

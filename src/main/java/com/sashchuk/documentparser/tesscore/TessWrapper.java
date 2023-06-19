@@ -17,7 +17,7 @@ public class TessWrapper {
 
     public static BufferedImage deskewImage(BufferedImage image) {
         ImageDeskew id = new ImageDeskew(image);
-        double imageSkewAngle = id.getSkewAngle(); // determine skew angle
+        double imageSkewAngle = id.getSkewAngle();
         if ((imageSkewAngle > 0.05d || imageSkewAngle < -(0.05d))) {
             image = ImageHelper.rotateImage(image, -imageSkewAngle); // deskew image
         }

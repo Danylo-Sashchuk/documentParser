@@ -3,7 +3,6 @@ package com.sashchuk.documentparser.tesseract;
 import com.sashchuk.documentparser.util.Config;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -66,7 +65,16 @@ public class TesseractTest {
         first.join();
         second.join();
 
-//        Assertions.assertThat(expected)
-//                .isEqualTo(actual);
+        //        Assertions.assertThat(expected)
+        //                .isEqualTo(actual);
+    }
+
+    @Test
+    void ocr2() throws TesseractException {
+        tesseract = new Tesseract();
+        tesseract.setDatapath(Config.getProperty("TESSETACT_DATAPATH"));
+        File file = new File("src/test/resources/Resume.pdf");
+        String actual = tesseract.doOCR(file);
+        System.out.println(actual);
     }
 }

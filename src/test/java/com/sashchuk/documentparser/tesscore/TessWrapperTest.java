@@ -18,13 +18,13 @@ public class TessWrapperTest {
 
     @BeforeAll
     static void beforeAll() {
-        Config.recreate();
+//        Config.recreate();
         System.setProperty("jna.library.path", Config.getProperty("JNA_LIBRARY_PATH"));
     }
 
     @Test
     void testDoOCR_SkewedImage() throws IOException, TesseractException {
-        tesseract.setDatapath(Config.getProperty("TESSETACT_DATAPATH"));
+//        tesseract.setDatapath(Config.getProperty("TESSETACT_DATAPATH"));
         File file = new File("src/test/resources/skewedImage.png");
         BufferedImage bi = ImageIO.read(file);
         bi = TessWrapper.deskewImage(bi);
